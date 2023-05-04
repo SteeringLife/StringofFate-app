@@ -1,8 +1,8 @@
-# Credence App
+# String of Fate App
 
-Web application for Credence system that allows teams to share sensitive files such as configuration information, credentials, etc.
+Web application for String of Fate system that allows you to record your connections with other people.
 
-Please also note the Web API that it uses: https://github.com/ISS-Security/credence-api
+Please also note the Web API that it uses: https://github.com/SteeringLife/StringofFate-api
 
 ## Install
 
