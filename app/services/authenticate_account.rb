@@ -6,6 +6,7 @@ module StringofFate
   # Returns an authenticated user, or nil
   class AuthenticateAccount
     class UnauthorizedError < StandardError; end
+    class ApiServerError < StandardError; end
 
     def initialize(config)
       @config = config
