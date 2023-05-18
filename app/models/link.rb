@@ -9,7 +9,7 @@ module StringofFate
       @id = link_info['attributes']['id']
       @name = link_info['attributes']['nickname']
       @repo_url = link_info['attributes']['url']
-      @platform_id = link_info['platform']['id']
+      @platform_id = link_info['platform']['attributes']['id']
     end
   end
 end
