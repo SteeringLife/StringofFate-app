@@ -1,0 +1,16 @@
+div class="row" style="vertical-align: bottom;"
+  div class="col-xs-9"
+    h3 All Links
+  div class="col-xs-3"
+table class="table"
+  thead
+    tr
+      the Link name
+      the Repo URL
+  tbody
+    - links.all.each do |link|
+      tr
+        td 
+          a href="/account/links/#{link.id}" #{link.name}
+          td 
+            a href="#{link.repo_url}" #{link.repo_url}
