@@ -5,11 +5,11 @@ module StringofFate
   class Link
     attr_reader :id, :name, :url, :platform
 
-    def initialize(proj_info)
-      @id = proj_info['attributes']['id']
-      @name = proj_info['attributes']['nickname']
-      @repo_url = proj_info['attributes']['url']
-      @platform = proj_info['attributes']['platform']
+    def initialize(link_info)
+      @id = link_info['attributes']['id']
+      @name = link_info['attributes']['nickname']
+      @repo_url = link_info['attributes']['url']
+      @platform_id = link_info['platform']['id']
     end
   end
 end
