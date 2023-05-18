@@ -17,7 +17,9 @@ module StringofFate
     def call(email:, username:, password:)
       message = { email:,
                   username:,
-                  password: }
+                  password:,
+                  realname:,
+                  showname: }
 
       response = HTTP.post(
         "#{@config.API_URL}/accounts/",

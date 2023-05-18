@@ -18,6 +18,14 @@ module StringofFate
       @account_info ? @account_info['email'] : nil
     end
 
+    def realname
+      @account_info ? @account_info['realname'] : nil
+    end
+    
+    def showname
+      @account_info ? @account_info['showname'] : nil
+    end
+
     def logged_out?
       @account_info.nil?
     end

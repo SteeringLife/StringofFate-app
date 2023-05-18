@@ -28,6 +28,8 @@ module StringofFate
             email: new_account['email'],
             username: new_account['username'],
             password: routing.params['password']
+            showname: routing.params['showname']
+            realname: routing.params['realname']
           )
           flash[:notice] = 'Account created! Please login'
           routing.redirect '/auth/login'

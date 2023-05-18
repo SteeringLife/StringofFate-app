@@ -5,12 +5,19 @@ div class="row" style="vertical-align: bottom;"
 table class="table"
   thead
     tr
+      the Category
+      the Platform
       the Link name
-      the Repo URL
+      the URL
   tbody
     - links.all.each do |link|
       tr
         td 
+          #{link.category}
+        td 
+          #{link.platform}
+        td 
           a href="/account/links/#{link.id}" #{link.name}
-          td 
-            a href="#{link.repo_url}" #{link.repo_url}
+        td 
+          a href="#{link.url}" #{link.url}
+  
