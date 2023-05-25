@@ -14,7 +14,11 @@ bundle install
 
 ## Test
 
-This web app does not contain any tests yet :(
+Run the test specification script in `Rakefile`:
+
+```shell
+rake spec
+```
 
 ## Execute
 
