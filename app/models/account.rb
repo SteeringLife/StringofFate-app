@@ -21,7 +21,7 @@ module StringofFate
     def realname
       @account_info ? @account_info['realname'] : nil
     end
-    
+
     def showname
       @account_info ? @account_info['showname'] : nil
     end
