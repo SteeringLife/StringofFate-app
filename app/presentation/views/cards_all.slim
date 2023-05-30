@@ -1,0 +1,22 @@
+div class="row" style="vertical-align: bottom;"
+  div class="col-xs-9"
+    h3 Cards
+  div class="col-xs-3"
+    button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCardModal" + New Card
+table class="table"
+  thead
+    tr
+      th Owner
+      th Card name
+      th Description
+  tbody
+    - cards.all.each do |card|
+      tr
+        td 
+          a #{card.owner.showname}
+            td
+              a href="/cards/#{card.id}" #{card.name}
+              td 
+                a #{card.description}
+
+include :card_new_partial

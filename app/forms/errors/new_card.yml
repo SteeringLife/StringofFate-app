@@ -1,0 +1,4 @@
+en:
+  errors:
+    name: 'Card name must be filled'
+    description: 'provide a description'
