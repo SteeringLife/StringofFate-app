@@ -1,0 +1,4 @@
+en:
+  errors:
+    name: 'Link name must be filled'
+    url: 'URL must be in proper format'

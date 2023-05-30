@@ -19,6 +19,7 @@ Run the test specification script in `Rakefile`:
 ```shell
 rake spec
 ```
+Allows running ```reload!``` in pry to restart entire app
 
 ## Execute
 

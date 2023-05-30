@@ -1,0 +1,18 @@
+h2 
+  a href="/cards/#{link.card.id}" #{link.card.name}
+h3 File: #{File.join(link.relative_path, link.filename)}
+
+dl
+  div class="row"
+    div class="col-xs-3"
+      dt Description:
+    div class="col-xs-9"
+      dd class="blockquote" #{link.description}
+    div class="col-xs-3"
+      dt Link:
+    div class="col-xs-9"
+      dd class="blockquote"
+        a data-bs-toggle="collapse" href="#link" aria-expanded="false" aria-controls="link" show link
+        div id="link" class="collapse"
+          dov class="card card-body"
+            pre class="force-wrap" #{link.content}
