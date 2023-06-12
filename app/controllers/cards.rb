@@ -72,9 +72,8 @@ module StringofFate
             )
 
             flash[:notice] = 'Your link was added'
-          rescue StandardError => error
-            puts error.inspect
-            puts error.backtrace
+          rescue StandardError => e
+            puts "ERROR CREATING DOCUMENT: #{e.inspect}"
             flash[:error] = 'Could not add link'
           ensure
             routing.redirect @card_route
@@ -95,7 +94,7 @@ module StringofFate
         # POST /cards/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
-          puts "CARD: #{routing.params}"
+
           card_data = Form::NewCard.new.call(routing.params)
           if card_data.failure?
             flash[:error] = Form.message_values(card_data)
