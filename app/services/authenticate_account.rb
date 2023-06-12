@@ -16,11 +16,11 @@ module StringofFate
     def call(username:, password:)
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
                            json: { username:, password: })
-      puts response.inspect
+
       raise(UnauthorizedError) if response.code == 403
       raise(ApiServerError) if response.code != 200
 
-      account_info = JSON.parse(response.to_s)['attributes']
+      account_info = JSON.parse(response.to_s)['data']['attributes']
 
       { account: account_info['account']['attributes'],
         auth_token: account_info['auth_token'] }

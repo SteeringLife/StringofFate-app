@@ -7,7 +7,7 @@ module StringofFate
   module Form
     USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/.freeze
     EMAIL_REGEX = /@/.freeze
-    FILENAME_REGEX = %r{^((?![&\/\\\{\}\|\t]).)*$}.freeze
+    NAME_REGEX = %r{^((?![&\/\\\{\}\|\t]).)*$}.freeze
     PATH_REGEX = /^((?![&\{\}\|\t]).)*$/.freeze
 
     def self.validation_errors(validation)

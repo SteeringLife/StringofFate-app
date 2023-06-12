@@ -68,13 +68,12 @@ module StringofFate
           # POST /auth/register
           routing.post do
             registration = Form::Registration.new.call(routing.params)
-
             if registration.failure?
               flash[:error] = Form.validation_errors(registration)
               routing.redirect @register_route
             end
 
-            VerifyRegistration.new(App.config).call(registration)
+            VerifyRegistration.new(App.config).call(registration.to_h)
 
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
