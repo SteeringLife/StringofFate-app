@@ -33,11 +33,15 @@ module StringofFate
       end
 
       rule(:password) do
-        key.failure('Password must be more complex') unless enough_entropy?(value)
+        unless enough_entropy?(value)
+          key.failure('Password must be more complex')
+        end
       end
 
       rule(:password, :password_confirm) do
-        key.failure('Passwords do not match') unless values[:password].eql?(values[:password_confirm])
+        unless values[:password].eql?(values[:password_confirm])
+          key.failure('Passwords do not match')
+        end
       end
     end
   end

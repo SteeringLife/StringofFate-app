@@ -16,7 +16,7 @@ module StringofFate
     def call(username:, password:)
       response = HTTP.post("#{@config.API_URL}/auth/authenticate",
                            json: { username:, password: })
-
+      puts response.inspect
       raise(UnauthorizedError) if response.code == 403
       raise(ApiServerError) if response.code != 200
 

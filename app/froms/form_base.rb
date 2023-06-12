@@ -7,7 +7,7 @@ module StringofFate
   module Form
     USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/
     EMAIL_REGEX = /@/
-    FILENAME_REGEX = %r{^((?![&/\\\{\}|\t]).)*$}
+    NAME_REGEX = %r{^((?![&/\\\{\}|\t]).)*$}
     PATH_REGEX = /^((?![&{}|\t]).)*$/
 
     def self.validation_errors(validation)

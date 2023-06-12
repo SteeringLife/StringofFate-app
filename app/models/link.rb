@@ -5,7 +5,7 @@ require_relative 'card'
 module StringofFate
   # Behaviors of the currently logged in account
   class Link
-    attr_reader :id, :name, :url,
+    attr_reader :id, :name, :url, # basic info
                 :card # full details
 
     def initialize(info)
@@ -16,8 +16,8 @@ module StringofFate
     private
 
     def process_attributes(attributes)
-      @id = attributes['id']
-      @name = attributes['nickname']
+      @id   = attributes['id']
+      @name = attributes['name']
       @url  = attributes['url']
     end
 
