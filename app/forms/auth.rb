@@ -17,8 +17,8 @@ module StringofFate
       params do
         required(:username).filled(format?: USERNAME_REGEX, min_size?: 4)
         required(:email).filled(format?: EMAIL_REGEX)
-        required(:showname).filled
         required(:realname).filled
+        required(:showname).filled
       end
     end
 
