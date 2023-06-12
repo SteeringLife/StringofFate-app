@@ -1,0 +1,6 @@
+en:
+  errors:
+    name: 'provide name with up to 255 legal characters'
+    name_valid?: 'name has illegal characters (e.g., & | \\ / <tab>'
+    url: 'URL must be in proper format'
+

@@ -6,17 +6,16 @@ div class="row" style="vertical-align: bottom;"
 table class="table"
   thead
     tr
-      th Owner
       th Card name
       th Description
   tbody
     - cards.all.each do |card|
       tr
-        td 
-          a #{card.owner.showname}
-            td
-              a href="/cards/#{card.id}" #{card.name}
-              td 
-                a #{card.description}
+        td
+          a href="/cards/#{card.id}" #{card.name}
+          td
+            a href="#{card.description}" #{card.description}
+
+include :card_new_partial
 
 include :card_new_partial

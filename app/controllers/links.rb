@@ -3,23 +3,20 @@
 require 'roda'
 
 module StringofFate
-  # Web controller for StringofFate API
+  # Web controller for String of Fate API
   class App < Roda
     route('links') do |routing|
-      routing.on do
-        # GET /links/
-        routing.get do
-          if @current_account.logged_in?
-            link_list = GetAllLinks.new(App.config).call(@current_account)
+      routing.redirect '/auth/login' unless @current_account.logged_in?
 
-            links = Links.new(link_list)
+      # GET /links/[link_id]
+      routing.get(String) do |link_id|
+        link_info = GetLink.new(App.config)
+                              .call(@current_account, link_id)
+        link = Link.new(link_info)
 
-            view :links_all,
-                 locals: { current_user: @current_account, links: }
-          else
-            routing.redirect '/auth/login'
-          end
-        end
+        view :link, locals: {
+          current_account: @current_account, link: link
+        }
       end
     end
   end
