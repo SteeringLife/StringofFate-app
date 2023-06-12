@@ -34,12 +34,9 @@ module StringofFate
             routing.redirect @login_route
           end
 
-          authenticated = AuthenticateAccount.new.call(**credentials.values)
+          authenticated = AuthenticateAccount.new.call(**credentials.values) # .new(App.config)
 
-          current_account = Account.new(
-            authenticated[:account],
-            authenticated[:auth_token]
-          )
+          current_account = Account.new(authenticated[:account], authenticated[:auth_token])
 
           CurrentSession.new(session).current_account = current_account
 
@@ -64,10 +61,7 @@ module StringofFate
                        .new(App.config)
                        .call(routing.params['code'])
 
-          current_account = Account.new(
-            authorized[:account],
-            authorized[:auth_token]
-          )
+          current_account = Account.new(authorized[:account], authorized[:auth_token])
 
           CurrentSession.new(session).current_account = current_account
 
