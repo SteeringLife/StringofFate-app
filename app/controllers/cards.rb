@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'roda'
+require_relative './app'
 
 module StringofFate
   # Web controller for String of Fate API
@@ -21,7 +22,7 @@ module StringofFate
             card = Card.new(card_info)
 
             view :card, locals: {
-              current_account: @current_account, card: card
+              current_account: @current_account, card:
             }
           rescue StandardError => e
             puts "#{e.inspect}\n#{e.backtrace}"
@@ -40,14 +41,14 @@ module StringofFate
 
             task_list = {
               'add' => { service: GiveCard,
-                         message: 'Give this card to reciever' },
+                         message: 'Give this card to reciever' }
             }
 
             task = task_list[action]
             task[:service].new(App.config).call(
               current_account: @current_account,
               reciever: reciever_info,
-              card_id: card_id
+              card_id:
             )
             flash[:notice] = task[:message]
 
@@ -67,7 +68,7 @@ module StringofFate
 
             CreateNewLink.new(App.config).call(
               current_account: @current_account,
-              card_id: card_id,
+              card_id:,
               link_data: link_data.to_h
             )
 
@@ -87,7 +88,7 @@ module StringofFate
           cards = Cards.new(card_list)
 
           view :cards_all, locals: {
-            current_account: @current_account, cards: cards
+            current_account: @current_account, cards:
           }
         end
 
