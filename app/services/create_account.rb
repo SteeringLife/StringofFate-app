@@ -14,7 +14,7 @@ module StringofFate
       @config = config
     end
 
-    def call(email:, username:, password:)
+    def call(email:, username:, password:, realname:, showname:)
       message = { email:,
                   username:,
                   password:,

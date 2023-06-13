@@ -11,19 +11,19 @@ module StringofFate
     attr_reader :account_info, :auth_token
 
     def username
-      @account_info ? @account_info['username'] : nil
+      @account_info ? @account_info['attributes']['username'] : nil
     end
 
     def email
-      @account_info ? @account_info['email'] : nil
+      @account_info ? @account_info['attributes']['email'] : nil
     end
 
     def realname
-      @account_info ? @account_info['realname'] : nil
+      @account_info ? @account_info['attributes']['realname'] : nil
     end
 
     def showname
-      @account_info ? @account_info['showname'] : nil
+      @account_info ? @account_info['attributes']['showname'] : nil
     end
 
     def logged_out?

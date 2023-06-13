@@ -24,8 +24,8 @@ module StringofFate
           end
 
           authenticated = AuthenticateAccount.new(App.config)
-            .call(**credentials.values)
-
+                                             .call(**credentials.values)
+          puts "controllers/auth.rb: authenticated: #{authenticated.inspect}"
           current_account = Account.new(
             authenticated[:account],
             authenticated[:auth_token]
