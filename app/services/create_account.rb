@@ -15,15 +15,11 @@ module StringofFate
     end
 
     def call(email:, username:, password:, realname:, showname:)
-      message = { email:,
-                  username:,
-                  password:,
-                  realname:,
-                  showname: }
+      account = { email:, username:, password:, realname:, showname: }
 
       response = HTTP.post(
         "#{@config.API_URL}/accounts/",
-        json: message
+        json: SignedMessage.sign(account)
       )
 
       raise InvalidAccount unless response.code == 201
