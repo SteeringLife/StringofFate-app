@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
+# Get details of an account
 class GetAccountDetails
-  # Error for account cannot be created
+  # Error for account details that cannot be retrieved
   class InvalidAccount < StandardError
     def message
       'You are not authorized to see details of that account'
@@ -17,7 +18,8 @@ class GetAccountDetails
                    .get("#{@config.API_URL}/accounts/#{username}")
     raise InvalidAccount if response.code != 200
 
-    data = JSON.parse(response.parse)['data']
+    puts "response: #{response}"
+    data = JSON.parse(response)['data']
     account_details = data['attributes']['account']
     auth_token = data['attributes']['auth_token']
     StringofFate::Account.new(account_details, auth_token)
