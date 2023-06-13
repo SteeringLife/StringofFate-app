@@ -43,43 +43,40 @@ div.row
           - if card.policies.can_add_private_hashtags
             button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Secret Tags
 
-div.row
-  div.col-lg-8
-    div.card.mb-3
-      div.card-header
-        strong Links
-      div.card-body
-        table.table.table-hover
-          thead
+div class="row"
+  div class="col-lg-9"
+    div class="row"
+      table class="table"
+        thead
+          tr
+            th Link
+            th Description
+        tbody
+          - card.links.each do |link|
             tr
-              th Link
-              th URL
-          tbody
-            - card.links.each do |link|
-              tr
-                td
-                  a href="/links/#{link.id}"
-                    == "#{link.name}"
-                td
-                  a href="#{link.url}" target="_blank"
-                    == "#{link.url}"
-        div.mt-3
-          - if card.policies.can_add_links
-            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinkModal" + New Link
-  div.col-lg-4
-    div.card.mb-3
-      div.card-header
-        strong Receivers
-      div.card-body
-        - if card.receivers.empty?
-          span.small There are no receivers yet
-        ul.list-group
-          - card.receivers.each do |receiver|
-            li.list-group-item.clearfix.mt-2
-              '  #{receiver.username}
-        div.mt-3
-          - if card.policies.can_give_card_to_receiver
-            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newReceiverModal" + Add Receiver
+              td
+                a href="/links/#{link.id}"
+                  == "#{link.name}"
+              td #{link.url}
+    div class="row"
+      div class="col-xs-4"
+        - if card.policies.can_add_links
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinktModal" + New Link
+    div class="row" style="height:10px;"
+  div class="col-lg-3"
+    div class="panel panel-default"
+      div class="panel-heading" Recievers
+      div class="panel-body"
+        - if card.recievers.empty?
+          span class="small" There are no recievers yet
+        ul class="list-group"
+          li class="list-group-item clearfix"
+              = card.owner.username
+          - card.recievers.each do |reciever|
+            li class="list-group-item clearfix"
+              '  #{reciever.username}
+        - if card.policies.can_give_card_to_reciever
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newRecieverModal" + Add Reciever
 
 
 include :link_new_partial

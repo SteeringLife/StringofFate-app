@@ -39,7 +39,7 @@ module StringofFate
           CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome back #{current_account.username}!"
-          routing.redirect '/cards'
+          routing.redirect '/projects'
         rescue AuthenticateAccount::NotAuthenticatedError
           flash.now[:error] = 'Username and password did not match our records'
           response.status = 401
