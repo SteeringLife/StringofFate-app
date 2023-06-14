@@ -19,6 +19,7 @@ module StringofFate
             card_info = GetCard.new(App.config).call(
               @current_account, card_id
             )
+
             card = Card.new(card_info)
 
             view :card, locals: {
@@ -30,12 +31,13 @@ module StringofFate
             routing.redirect @cards_route
           end
 
-          # POST /cards/[card_id]/recievers
-          routing.post('recievers') do
+          # POST /cards/[card_id]/receivers
+          routing.post('receivers') do
             action = routing.params['action']
-            reciever_info = Form::ReceiverEmail.new.call(routing.params)
-            if reciever_info.failure?
-              flash[:error] = Form.validation_errors(reciever_info)
+            receiver_info = Form::ReceiverEmail.new.call(routing.params)
+
+            if receiver_info.failure?
+              flash[:error] = Form.validation_errors(receiver_info)
               routing.halt
             end
 
@@ -47,7 +49,7 @@ module StringofFate
             task = task_list[action]
             task[:service].new(App.config).call(
               current_account: @current_account,
-              reciever: reciever_info,
+              receiver: receiver_info,
               card_id:
             )
             flash[:notice] = task[:message]
@@ -61,6 +63,7 @@ module StringofFate
           # POST /cards/[card_id]/links/
           routing.post('links') do
             link_data = Form::NewLink.new.call(routing.params)
+
             if link_data.failure?
               flash[:error] = Form.message_values(link_data)
               routing.halt
