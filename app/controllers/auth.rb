@@ -39,7 +39,7 @@ module StringofFate
           CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome back #{current_account.username}!"
-          routing.redirect '/projects'
+          routing.redirect '/cards'
         rescue AuthenticateAccount::NotAuthenticatedError
           flash.now[:error] = 'Username and password did not match our records'
           response.status = 401
@@ -55,9 +55,12 @@ module StringofFate
       routing.is 'sso_callback' do
         # GET /auth/sso_callback
         routing.get do
+          puts 'SSO CALLBACK'
           authorized = AuthorizeGithubAccount
                        .new(App.config)
                        .call(routing.params['code'])
+
+          puts "AUTHORIZED: #{authorized.inspect}"
 
           current_account = Account.new(authorized[:account], authorized[:auth_token])
 
