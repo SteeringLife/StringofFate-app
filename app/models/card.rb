@@ -26,6 +26,7 @@ module StringofFate
       @owner = Account.new(relationships['owner'])
       @receivers = process_receivers(relationships['receivers'])
       @links = process_links(relationships['links'])
+      @public_hashtags = process_public_hashtags(relationships['public_hashtags'])
     end
 
     def process_policies(policies)
@@ -36,6 +37,12 @@ module StringofFate
       return nil unless links_info
 
       links_info.map { |link_info| Link.new(link_info) }
+    end
+
+    def process_public_hashtags(public_hashtags_info)
+      return nil unless public_hashtags_info
+
+      public_hashtags_info.map { |public_hashtag_info| PublicHashtag.new(public_hashtag_info) }
     end
 
     def process_receivers(receivers)

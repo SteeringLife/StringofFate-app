@@ -5,7 +5,7 @@ require_relative './app'
 
 module StringofFate
   # Web controller for String of Fate API
-  class App < Roda
+  class App < Roda # rubocop:disable Metrics/ClassLength
     route('cards') do |routing|
       routing.on do
         routing.redirect '/auth/login' unless @current_account.logged_in?
@@ -14,7 +14,7 @@ module StringofFate
         routing.on(String) do |card_id|
           @card_route = "#{@cards_route}/#{card_id}"
 
-# GET /cards/[card_id]
+          # GET /cards/[card_id]
           routing.get do
             card_info = GetCard.new(App.config).call(
               @current_account, card_id
@@ -60,7 +60,7 @@ module StringofFate
             routing.redirect @card_route
           end
 
-# POST /cards/[card_id]/links/
+          # POST /cards/[card_id]/links/
           routing.post('links') do
             link_data = Form::NewLink.new.call(routing.params)
 
@@ -82,9 +82,32 @@ module StringofFate
           ensure
             routing.redirect @card_route
           end
+
+          # POST /cards/[card_id]/public_hashtags/
+          routing.post('public_hashtags') do
+            public_hashtag_data = Form::NewPublicHashtag.new.call(routing.params)
+
+            if public_hashtag_data.failure?
+              flash[:error] = Form.message_values(public_hashtag_data)
+              routing.halt
+            end
+
+            CreateNewPublicHashtag.new(App.config).call(
+              current_account: @current_account,
+              card_id:,
+              public_hashtag_data: public_hashtag_data.to_h
+            )
+
+            flash[:notice] = 'Your tag was added'
+          rescue StandardError => e
+            puts "ERROR CREATING PUBLIC HASHTAG: #{e.inspect}"
+            flash[:error] = 'Could not add tag'
+          ensure
+            routing.redirect @card_route
+          end
         end
 
-# GET /cards/
+        # GET /cards/
         routing.get do
           card_list = GetAllCards.new(App.config).call(@current_account)
 
@@ -95,7 +118,7 @@ module StringofFate
           }
         end
 
-# POST /cards/
+        # POST /cards/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
 
