@@ -5,7 +5,7 @@ require_relative './app'
 
 module StringofFate
   # Web controller for Strinf of Fate App
-  class App < Roda # rubocop:disable Metrics/ClassLength
+  class App < Roda
     def gh_oauth_url(config)
       url = config.GH_OAUTH_URL
       client_id = config.GH_CLIENT_ID
@@ -27,7 +27,6 @@ module StringofFate
         # POST /auth/login
         routing.post do
           credentials = Form::LoginCredentials.new.call(routing.params)
-
           if credentials.failure?
             flash[:error] = 'Please enter both username and password'
             routing.redirect @login_route
@@ -40,7 +39,7 @@ module StringofFate
           CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome back #{current_account.username}!"
-          routing.redirect '/projects'
+          routing.redirect '/cards'
         rescue AuthenticateAccount::NotAuthenticatedError
           flash.now[:error] = 'Username and password did not match our records'
           response.status = 401
@@ -56,16 +55,19 @@ module StringofFate
       routing.is 'sso_callback' do
         # GET /auth/sso_callback
         routing.get do
+          puts 'SSO CALLBACK'
           authorized = AuthorizeGithubAccount
                        .new(App.config)
                        .call(routing.params['code'])
+
+          puts "AUTHORIZED: #{authorized.inspect}"
 
           current_account = Account.new(authorized[:account], authorized[:auth_token])
 
           CurrentSession.new(session).current_account = current_account
 
           flash[:notice] = "Welcome #{current_account.username}!"
-          routing.redirect '/projects'
+          routing.redirect '/cards'
         rescue AuthorizeGithubAccount::UnauthorizedError
           flash[:error] = 'Could not login with Github'
           response.status = 403

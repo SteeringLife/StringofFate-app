@@ -16,7 +16,7 @@ module StringofFate
     def call(current_account:, card_id:, link_data:)
       config_url = "#{api_url}/cards/#{card_id}/links"
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .post(config_url, json: link_data)
+                     .post(config_url, json: link_data)
 
       response.code == 201 ? JSON.parse(response.body.to_s) : raise
     end
