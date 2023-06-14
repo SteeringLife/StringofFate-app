@@ -34,7 +34,6 @@ module StringofFate
           end
 
           authenticated = AuthenticateAccount.new.call(**credentials.values) # .new(App.config)
-
           current_account = Account.new(authenticated[:account], authenticated[:auth_token])
 
           CurrentSession.new(session).current_account = current_account
