@@ -33,7 +33,7 @@ module StringofFate
           # POST /cards/[card_id]/recievers
           routing.post('recievers') do
             action = routing.params['action']
-            reciever_info = Form::RecieverEmail.new.call(routing.params)
+            reciever_info = Form::ReceiverEmail.new.call(routing.params)
             if reciever_info.failure?
               flash[:error] = Form.validation_errors(reciever_info)
               routing.halt

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module StringofFate
-  # Service to add reciever to card
+  # Service to add receiver to card
   class GiveCard
     class CardNotGave < StandardError; end
 
@@ -13,10 +13,10 @@ module StringofFate
       @config.API_URL
     end
 
-    def call(current_account:, reciever:, card_id:)
+    def call(current_account:, receiver:, card_id:)
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .put("#{api_url}/cards/#{card_id}/recievers",
-                          json: { email: reciever[:email] })
+                     .put("#{api_url}/cards/#{card_id}/receivers",
+                          json: { email: receiver[:email] })
 
       raise CardNotGave unless response.code == 200
     end
