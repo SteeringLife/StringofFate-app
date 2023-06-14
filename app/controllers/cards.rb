@@ -14,7 +14,7 @@ module StringofFate
         routing.on(String) do |card_id|
           @card_route = "#{@cards_route}/#{card_id}"
 
-# GET /cards/[card_id]
+          # GET /cards/[card_id]
           routing.get do
             card_info = GetCard.new(App.config).call(
               @current_account, card_id
@@ -60,7 +60,7 @@ module StringofFate
             routing.redirect @card_route
           end
 
-# POST /cards/[card_id]/links/
+          # POST /cards/[card_id]/links/
           routing.post('links') do
             link_data = Form::NewLink.new.call(routing.params)
 
@@ -157,7 +157,7 @@ module StringofFate
           end
         end
 
-# GET /cards/
+        # GET /cards/
         routing.get do
           card_list = GetAllCards.new(App.config).call(@current_account)
 
@@ -168,7 +168,7 @@ module StringofFate
           }
         end
 
-# POST /cards/
+        # POST /cards/
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
 
