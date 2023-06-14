@@ -6,35 +6,13 @@ div class="container"
       button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCardModal" + New Card
   div.row
     - cards.all.each do |card|
-      div class="col-12 col-sm-6 col-md-4 mb-3"
-        a href="/cards/#{card.id}" style="text-decoration: none;"
-          .card.h-100 class="card mb-3"
-            .card-body
-              div.row.align-items-center
-                div class="col-6"
-                  h5.card-title
-                    == "#{card.name}"
-                div class="col-6 text-end"
-                  p.card-text
-                    == "Owner: #{card.owner.username}"
-
-              p.card-text
-                == "#{card.description}"
-
-              h6.card-title Tags
-              - if card.public_hashtags.empty?
-                span.small There are no tags yet
-              - else
-                - card.public_hashtags.each do |tag|
-                  a href="/cards/tags/#{tag.content}"
-                    button type="button" class="btn btn-sm btn-outline-primary mr-8 mb-8" = "##{tag.content}"
-              div.text-end.mt-3
-              h6.card-title Secret Tags
-              - if card.private_hashtags.empty?
-                span.small There are no secrets tags yet
-              - else
-                - card.private_hashtags.each do |tag|
-                  a href="/cards/tags/#{tag.content}"
-                    button type="button" class="btn btn-sm btn-outline-secondary mr-8 mb-8" = "##{tag.content}"
+      tr
+        td
+          a href="/cards/#{card.id}" #{card.name}
+        td
+          == "#{card.description}"
+        td
+          == "#{card.inspect}"
 
 include :card_new_partial
+
