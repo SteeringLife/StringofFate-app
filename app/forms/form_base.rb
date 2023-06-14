@@ -1,4 +1,3 @@
-# rubocop:disable Style/RedundantFreeze, Style/RedundantRegexpEscape
 # frozen_string_literal: true
 
 require 'dry-validation'
@@ -6,9 +5,10 @@ require 'dry-validation'
 module StringofFate
   # Form helpers
   module Form
-    USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/.freeze
-    EMAIL_REGEX = /@/.freeze
-    NAME_REGEX = %r{^((?![&\/\\\{\}\|\t]).)*$}.freeze
+    USERNAME_REGEX = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/
+    EMAIL_REGEX = /@/
+    NAME_REGEX = %r{^((?![&/\\\{\}|\t]).)*$}
+    PATH_REGEX = /^((?![&{}|\t]).)*$/
 
     def self.validation_errors(validation)
       validation.errors.to_h.map { |k, v| [k, v].join(' ') }.join('; ')
@@ -19,5 +19,3 @@ module StringofFate
     end
   end
 end
-
-# rubocop:enable Style/RedundantFreeze, Style/RedundantRegexpEscape
