@@ -30,3 +30,13 @@ Style/SymbolArray:
   Exclude:
     - db/migrations/**/*
     - Rakefile
+
+Style/Documentation:
+  Enabled: true
+  Exclude:
+    - app/forms/**/*
+
+Style/OpenStructUse:
+  Enabled: true
+  Exclude:
+    - app/models/**/*
