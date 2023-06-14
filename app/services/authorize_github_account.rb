@@ -18,6 +18,7 @@ module StringofFate
 
     def call(code)
       access_token = get_access_token_from_github(code)
+      puts "ACCESS TOKEN: #{access_token}"
       get_sso_account_from_api(access_token)
     end
 
@@ -36,17 +37,13 @@ module StringofFate
     end
 
     def get_sso_account_from_api(access_token)
-      signed_sso_info = { access_token: }
-                        .then { |sso_info| SignedMessage.sign(sso_info) }
-
-      response = HTTP.post(
-        "#{@config.API_URL}/auth/sso",
-        json: signed_sso_info
-      )
+      response =
+        HTTP.post("#{@config.API_URL}/auth/sso",
+                  json: { access_token: })
       raise if response.code >= 400
 
       account_info = JSON.parse(response)['data']['attributes']
-
+      pust "ACCOUNT INFO: #{account_info}"
       { account: account_info['account'],
         auth_token: account_info['auth_token'] }
     end

@@ -11,7 +11,7 @@ class StringSecurity
 
     counts.values.reduce(0) do |entropy, count|
       prob = count / length
-      entropy - prob * Math.log2(prob)
+      entropy - (prob * Math.log2(prob))
     end
   end
 end
