@@ -4,7 +4,7 @@ require 'roda'
 require_relative './app'
 
 module StringofFate
-  # Web controller for Strinf of Fate App
+  # Web controller for String of Fate App
   class App < Roda
     def gh_oauth_url(config)
       url = config.GH_OAUTH_URL

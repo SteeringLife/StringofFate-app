@@ -4,6 +4,7 @@ require_relative 'form_base'
 
 module StringofFate
   module Form
+    # ReceiverEmail Validation
     class ReceiverEmail < Dry::Validation::Contract
       config.messages.load_paths << File.join(__dir__, 'errors/account_details.yml')
 

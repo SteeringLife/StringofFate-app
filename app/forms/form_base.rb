@@ -1,3 +1,4 @@
+# rubocop:disable Style/RedundantFreeze, Style/RedundantRegexpEscape
 # frozen_string_literal: true
 
 require 'dry-validation'
@@ -19,3 +20,5 @@ module StringofFate
     end
   end
 end
+
+# rubocop:enable Style/RedundantFreeze, Style/RedundantRegexpEscape

@@ -4,6 +4,7 @@ require_relative 'form_base'
 
 module StringofFate
   module Form
+    # NewLink Validation
     class NewLink < Dry::Validation::Contract
       config.messages.load_paths << File.join(__dir__, 'errors/new_link.yml')
 

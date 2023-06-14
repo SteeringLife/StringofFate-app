@@ -10,10 +10,8 @@ module StringofFate
     end
 
     def current_account
-      Account.new(
-        @secure_session.get(:account),
-        @secure_session.get(:auth_token)
-      )
+      Account.new(@secure_session.get(:account),
+                  @secure_session.get(:auth_token))
     end
 
     def current_account=(current_account)
