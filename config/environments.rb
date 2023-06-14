@@ -50,7 +50,7 @@ module StringofFate
       #     expire_after: ONE_MONTH,
       #     secret: config.SESSION_SECRET,
       #     httponly: true,
-      #     same_site: :strict
+      #     same_site: :lax
 
       use Rack::Session::Pool,
           expire_after: ONE_MONTH,
