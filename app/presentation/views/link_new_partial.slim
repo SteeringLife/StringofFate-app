@@ -8,9 +8,9 @@ div id="newLinkModal" class="modal fade" role="dialog"
         form role="form" action="/cards/#{card.id}/links" method='post' id='new-link-form'
           div class="form-group"
             label for='link_name_input' Link Name:
-            input type='text' name='linkname' id='linkname_input' class="form-control" placeholder="Link name is required"
+            input type='text' name='name' id='link_name_input' class="form-control" placeholder="Link name is required"
           div class="form-group"
             label for='link_url_input' Link URL:
-            input type='text' name='relative_path' id='link_url_input' class="form-control" placeholder="(optional)"
+            input type='text' name='url' id='link_url_input' class="form-control" placeholder="(optional)"
           button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Create
           button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel
