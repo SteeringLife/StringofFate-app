@@ -29,7 +29,7 @@ module StringofFate
         secure: true,
         httponly: true,
         samesite: {
-          strict: true
+          lax: true
         }
       }
 
