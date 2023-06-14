@@ -12,3 +12,7 @@
   max-width:35px;
   margin-top: -7px;
 }
+
+.card-fixed-width {
+  width: 400px; /* 你想要設置的寬度 */
+}
