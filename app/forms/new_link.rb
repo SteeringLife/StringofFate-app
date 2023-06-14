@@ -9,7 +9,7 @@ module StringofFate
 
       params do
         required(:name).filled
-        optional(:url).maybe(format?: URI::DEFAULT_PARSER.make_regexp)
+        required(:url).filled(format?: URI::DEFAULT_PARSER.make_regexp)
       end
     end
   end
