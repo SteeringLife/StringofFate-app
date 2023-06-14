@@ -8,12 +8,15 @@ table class="table"
     tr
       th Card name
       th Description
+      th Owner
   tbody
     - cards.all.each do |card|
       tr
         td
           a href="/cards/#{card.id}" #{card.name}
-          td
-            a href="#{card.description}" #{card.description}
+        td
+          == "#{card.description}"
+        td
+          == "#{card.inspect}"
 
 include :card_new_partial
