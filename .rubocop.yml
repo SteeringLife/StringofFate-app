@@ -32,4 +32,11 @@ Style/SymbolArray:
     - Rakefile
 
 Style/Documentation:
-  Enabled: false
+  Enabled: true
+  Exclude:
+    - app/forms/**/*
+
+Style/OpenStructUse:
+  Enabled: true
+  Exclude:
+    - app/models/**/*
