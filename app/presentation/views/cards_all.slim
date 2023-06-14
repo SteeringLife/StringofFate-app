@@ -6,13 +6,22 @@ div class="container"
       button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newCardModal" + New Card
   div.row
     - cards.all.each do |card|
-      tr
-        td
-          a href="/cards/#{card.id}" #{card.name}
-        td
-          == "#{card.description}"
-        td
-          == "#{card.inspect}"
+      div class="col-12 col-sm-6 col-md-4 mb-3"
+        .card.h-100
+          .card-body
+            div.row.align-items-center
+              div class="col-6"
+                h5.card-title
+                  == "#{card.name}"
+              div class="col-6 text-end"
+                p.card-text
+                  == "Owner: #{card.owner.username}"
+
+            p.card-text
+              == "#{card.description}"
+
+            div.text-end
+              a.btn.btn-primary href="/cards/#{card.id}" View Card
 
 include :card_new_partial
 
