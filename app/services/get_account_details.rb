@@ -18,7 +18,6 @@ class GetAccountDetails
                    .get("#{@config.API_URL}/accounts/#{username}")
     raise InvalidAccount if response.code != 200
 
-    puts "response: #{response}"
     data = JSON.parse(response)['data']
     account_details = data['attributes']['account']
     auth_token = data['attributes']['auth_token']

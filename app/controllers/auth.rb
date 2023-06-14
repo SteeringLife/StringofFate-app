@@ -27,7 +27,6 @@ module StringofFate
         # POST /auth/login
         routing.post do
           credentials = Form::LoginCredentials.new.call(routing.params)
-
           if credentials.failure?
             flash[:error] = 'Please enter both username and password'
             routing.redirect @login_route
@@ -55,9 +54,12 @@ module StringofFate
       routing.is 'sso_callback' do
         # GET /auth/sso_callback
         routing.get do
+          puts 'SSO CALLBACK'
           authorized = AuthorizeGithubAccount
                        .new(App.config)
                        .call(routing.params['code'])
+
+          puts "AUTHORIZED: #{authorized.inspect}"
 
           current_account = Account.new(authorized[:account], authorized[:auth_token])
 
