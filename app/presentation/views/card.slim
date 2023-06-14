@@ -41,8 +41,8 @@ div class="row"
           - card.public_hashtags.each do |public_hashtag|
             li class="list-group-item clearfix"
               '  ##{public_hashtag.content}
-        - if card.policies.can_add_public_hashtags?
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTagsModal" + Add Tags
+        - if card.policies.can_add_public_hashtags
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTagModal" + Add Tags
     div class="panel panel-default"
       div class="panel-heading" Receivers
       div class="panel-body"
