@@ -4,7 +4,7 @@ module StringofFate
   # Behaviors of the currently logged in account
   class Card
     attr_reader :id, :name, :description, # basic info
-                :owner, :receivers, :links, :policies # full details
+                :owner, :receivers, :links, :policies, :public_hashtags # full details
 
     def initialize(card_info)
       process_attributes(card_info['attributes'])

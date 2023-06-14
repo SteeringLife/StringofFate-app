@@ -5,9 +5,9 @@ module StringofFate
   class PublicHashtag
     attr_reader :id, :content # basic info
 
-    def initialize(public_hashtag_info_info)
-      process_attributes(public_hashtag_info_info['attributes'])
-      process_policies(public_hashtag_info_info['policies'])
+    def initialize(public_hashtag_info)
+      process_attributes(public_hashtag_info['attributes'])
+      process_policies(public_hashtag_info['policies'])
     end
 
     private
