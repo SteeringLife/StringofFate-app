@@ -8,25 +8,25 @@ module StringofFate
     route('cards') do |routing|
       routing.on do
         routing.redirect '/auth/login' unless @current_account.logged_in?
-        @projects_route = '/cards'
+        @cards_route = '/cards'
 
         routing.on(String) do |card_id|
-          @project_route = "#{@projects_route}/#{card_id}"
+          @card_route = "#{@cards_route}/#{card_id}"
 
           # GET /cards/[card_id]
           routing.get do
             card_info = GetCard.new(App.config).call(
               @current_account, card_id
             )
-            project = Project.new(card_info)
+            card = Card.new(card_info)
 
-            view :project, locals: {
-              current_account: @current_account, project: project
+            view :card, locals: {
+              current_account: @current_account, card:
             }
           rescue StandardError => e
             puts "#{e.inspect}\n#{e.backtrace}"
-            flash[:error] = 'Project not found'
-            routing.redirect @projects_route
+            flash[:error] = 'Card not found'
+            routing.redirect @cards_route
           end
 
           # POST /cards/[card_id]/collaborators
@@ -40,56 +40,56 @@ module StringofFate
 
             task_list = {
               'add' => { service: AddCollaborator,
-                         message: 'Added new collaborator to project' },
+                         message: 'Added new collaborator to card' },
               'remove' => { service: RemoveCollaborator,
-                            message: 'Removed collaborator from project' }
+                            message: 'Removed collaborator from card' }
             }
 
             task = task_list[action]
             task[:service].new(App.config).call(
               current_account: @current_account,
               collaborator: collaborator_info,
-              project_id: card_id
+              card_id:
             )
             flash[:notice] = task[:message]
 
           rescue StandardError
             flash[:error] = 'Could not find collaborator'
           ensure
-            routing.redirect @project_route
+            routing.redirect @card_route
           end
 
-          # POST /cards/[card_id]/documents/
-          routing.post('documents') do
-            document_data = Form::NewDocument.new.call(routing.params)
-            if document_data.failure?
-              flash[:error] = Form.message_values(document_data)
+          # POST /cards/[card_id]/links/
+          routing.post('links') do
+            link_data = Form::NewLink.new.call(routing.params)
+            if link_data.failure?
+              flash[:error] = Form.message_values(link_data)
               routing.halt
             end
 
-            CreateNewDocument.new(App.config).call(
+            CreateNewLink.new(App.config).call(
               current_account: @current_account,
-              project_id: card_id,
-              document_data: document_data.to_h
+              card_id:,
+              link_data: link_data.to_h
             )
 
-            flash[:notice] = 'Your document was added'
+            flash[:notice] = 'Your link was added'
           rescue StandardError => e
             puts "ERROR CREATING DOCUMENT: #{e.inspect}"
-            flash[:error] = 'Could not add document'
+            flash[:error] = 'Could not add link'
           ensure
-            routing.redirect @project_route
+            routing.redirect @card_route
           end
         end
 
         # GET /cards/
         routing.get do
-          project_list = GetAllProjects.new(App.config).call(@current_account)
+          card_list = GetAllCards.new(App.config).call(@current_account)
 
-          cards = Projects.new(project_list)
+          cards = Cards.new(card_list)
 
-          view :projects_all, locals: {
-            current_account: @current_account, cards: cards
+          view :cards_all, locals: {
+            current_account: @current_account, cards:
           }
         end
 
@@ -97,23 +97,23 @@ module StringofFate
         routing.post do
           routing.redirect '/auth/login' unless @current_account.logged_in?
 
-          project_data = Form::NewProject.new.call(routing.params)
-          if project_data.failure?
-            flash[:error] = Form.message_values(project_data)
+          card_data = Form::NewCard.new.call(routing.params)
+          if card_data.failure?
+            flash[:error] = Form.message_values(card_data)
             routing.halt
           end
 
-          CreateNewProject.new(App.config).call(
+          CreateNewCard.new(App.config).call(
             current_account: @current_account,
-            project_data: project_data.to_h
+            card_data: card_data.to_h
           )
 
-          flash[:notice] = 'Add documents and collaborators to your new project'
+          flash[:notice] = 'Add links and collaborators to your new card'
         rescue StandardError => e
-          puts "FAILURE Creating Project: #{e.inspect}"
-          flash[:error] = 'Could not create project'
+          puts "FAILURE Creating Card: #{e.inspect}"
+          flash[:error] = 'Could not create card'
         ensure
-          routing.redirect @projects_route
+          routing.redirect @cards_route
         end
       end
     end

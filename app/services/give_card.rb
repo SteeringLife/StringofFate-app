@@ -15,7 +15,7 @@ module StringofFate
 
     def call(current_account:, reciever:, card_id:)
       response = HTTP.auth("Bearer #{current_account.auth_token}")
-                    .put("#{api_url}/cards/#{card_id}/recievers",
+                     .put("#{api_url}/cards/#{card_id}/recievers",
                           json: { email: reciever[:email] })
 
       raise CardNotGave unless response.code == 200

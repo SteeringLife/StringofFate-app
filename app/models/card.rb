@@ -29,7 +29,7 @@ module StringofFate
     end
 
     def process_policies(policies)
-      @policies = OpenStruct.new(policies)
+      @policies = OpenStruct.new(policies) # rubocop:disable Style/OpenStructUse
     end
 
     def process_links(links_info)
