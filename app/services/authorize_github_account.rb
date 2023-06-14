@@ -18,7 +18,6 @@ module StringofFate
 
     def call(code)
       access_token = get_access_token_from_github(code)
-      puts "ACCESS TOKEN: #{access_token}"
       get_sso_account_from_api(access_token)
     end
 
@@ -43,7 +42,6 @@ module StringofFate
       raise if response.code >= 400
 
       account_info = JSON.parse(response)['data']['attributes']
-      pust "ACCOUNT INFO: #{account_info}"
       { account: account_info['account'],
         auth_token: account_info['auth_token'] }
     end

@@ -54,12 +54,9 @@ module StringofFate
       routing.is 'sso_callback' do
         # GET /auth/sso_callback
         routing.get do
-          puts 'SSO CALLBACK'
           authorized = AuthorizeGithubAccount
                        .new(App.config)
                        .call(routing.params['code'])
-
-          puts "AUTHORIZED: #{authorized.inspect}"
 
           current_account = Account.new(authorized[:account], authorized[:auth_token])
 
