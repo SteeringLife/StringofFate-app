@@ -8,7 +8,7 @@ div class="container"
     - cards.all.each do |card|
       div class="col-12 col-sm-6 col-md-4 mb-3" 
         a href="/cards/#{card.id}" style="text-decoration: none;"
-          .card.h-100 class="card bg-light mb-3"
+          .card.h-100 class="card mb-3"
             .card-body
               div.row.align-items-center
                 div class="col-6"
@@ -21,26 +21,20 @@ div class="container"
               p.card-text
                 == "#{card.description}"
 
-              div.row.mt-3.align-items-center
-                div.col-6
-                  .card
-                    .card-body
-                      h6.card-title Tags
-                      p.card-text
-                        - if card.public_hashtags.empty?
-                          span.small There are no tags yet
-                        - else
-                          - card.public_hashtags.each do |tag|
-                            button type="button" class="btn btn-sm btn-outline-primary" = "##{tag.content}"
-                div.col-6
-                  .card
-                    .card-body
-                      h6.card-title Secret Tags
-                      p.card-text
-                        - if card.private_hashtags.empty?
-                          span.small There are no tags yet
-                        - else
-                          - card.private_hashtags.each do |tag|
-                            button type="button" class="btn btn-sm btn-outline-secondary" = "##{tag.content}"
+              h6.card-title Tags
+              - if card.public_hashtags.empty?
+                span.small There are no tags yet
+              - else
+                - card.public_hashtags.each do |tag|
+                  a href="/cards/tags/#{tag.content}"
+                    button type="button" class="btn btn-sm btn-outline-primary mr-8 mb-8" = "##{tag.content}"
+              div.text-end.mt-3
+              h6.card-title Secret Tags
+              - if card.private_hashtags.empty?
+                span.small There are no secrets tags yet
+              - else
+                - card.private_hashtags.each do |tag|
+                  a href="/cards/tags/#{tag.content}"
+                    button type="button" class="btn btn-sm btn-outline-secondary mr-8 mb-8" = "##{tag.content}"
 
 include :card_new_partial
