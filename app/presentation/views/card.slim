@@ -13,16 +13,17 @@ dl
       dd.blockquote
         == "#{card.owner.username}"
     div.col-xs-9
-      dt Public Hashtags:
+      dt Tags:
       dd.blockquote
         - if card.public_hashtags.empty?
           span.small There are no tags yet
-        ul.list-group
+        - else
           - card.public_hashtags.each do |public_hashtag|
-            li.list-group-item.clearfix
-              '  ##{public_hashtag.content}
+            a href="/cards/tags/#{public_hashtag.content}"
+              button type="button" class="btn btn-sm btn-outline-primary mr-8 mb-8" = "##{public_hashtag.content}"
         - if card.policies.can_add_public_hashtags
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPublicHashtagModal" + Add Public Hashtags
+        div.mt-3
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPublicHashtagModal" + Add Tags
 
 div.row.mb-3
   div.col-lg-9
@@ -49,16 +50,17 @@ div.row.mb-3
   div.col-lg-3
     div.panel.panel-default.mt-3
       div.panel-heading
-        strong Private Hashtags
+        strong Secret Tags
       div.panel-body
         - if card.private_hashtags.empty?
           span.small There are no tags yet
-        ul.list-group
+        - else
           - card.private_hashtags.each do |private_hashtag|
-            li.list-group-item.clearfix
-              '  ##{private_hashtag.content}
+            a href="/cards/tags/#{private_hashtag.content}"
+              button type="button" class="btn btn-sm btn-outline-secondary mr-8 mb-8" = "##{private_hashtag.content}"
         - if card.policies.can_add_private_hashtags
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Private Hashtags
+        div.mt-3
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Secret Tags
     div.panel.panel-default.mt-3
       div.panel-heading
         strong Receivers
@@ -70,6 +72,7 @@ div.row.mb-3
             li.list-group-item.clearfix
               '  #{receiver.username}
         - if card.policies.can_give_card_to_receiver
+        div.mt-3
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newReceiverModal" + Add Receiver
 
 
