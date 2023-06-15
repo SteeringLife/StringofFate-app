@@ -37,7 +37,7 @@ module StringofFate
           routing.redirect '/auth/login'
         rescue CreateAccount::InvalidAccount => e
           flash[:error] = e.message
-          routing.redirect '/auth/register'
+          routing.redirect 'auth/register'
         rescue StandardError => e
           flash[:error] = e.message
           routing.redirect(
