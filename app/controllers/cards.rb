@@ -139,16 +139,22 @@ module StringofFate
         end
 
         # GET /cards/tags/[tag_content]
-        routing.get(String) do |tag_content|
-          card_list = GetCardsByTag.new(App.config).call(
-            @current_account, tag_content
-          )
+        routing.on('tags') do
+          routing.get(String) do |tag_content|
+            puts "TAG CONTENT: #{tag_content}"
+            card_list = GetCardsByTag.new(App.config).call(
+              @current_account, tag_content
+            )
 
-          cards = Cards.new(card_list)
+            cards = Cards.new(card_list)
 
-          view :cards_all, locals: {
-            current_account: @current_account, cards:
-          }
+            view :cards_all, locals: {
+              current_account: @current_account, cards:
+            }
+
+          rescue StandardError => e
+            puts "ERROR GETTING CARDS BY TAG: #{e.inspect}"
+          end
         end
 
         # GET /cards/
