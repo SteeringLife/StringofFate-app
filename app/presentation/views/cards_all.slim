@@ -25,22 +25,22 @@ div class="container"
                 div.col-6
                   .card
                     .card-body
-                      h6.card-title Public#
+                      h6.card-title Tags
                       p.card-text
                         - if card.public_hashtags.empty?
                           span.small There are no tags yet
                         - else
                           - card.public_hashtags.each do |tag|
-                            button type="button" class="btn btn-sm btn-outline-primary" =tag
+                            button type="button" class="btn btn-sm btn-outline-primary" = "##{tag.content}"
                 div.col-6
                   .card
                     .card-body
-                      h6.card-title Private#
+                      h6.card-title Secret Tags
                       p.card-text
                         - if card.private_hashtags.empty?
                           span.small There are no tags yet
                         - else
                           - card.private_hashtags.each do |tag|
-                            button type="button" class="btn btn-sm btn-outline-secondary" =tag
+                            button type="button" class="btn btn-sm btn-outline-secondary" = "##{tag.content}"
 
 include :card_new_partial
