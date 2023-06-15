@@ -1,0 +1,13 @@
+div id="newPrivateHashtagModal" class="modal fade" role="dialog"
+  div class="modal-dialog"
+    div class="modal-content"
+      div class="modal-header"
+        h4 New PrivateHashtag
+        button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      div class="modal-body"
+        form role="form" action="/cards/#{card.id}/private_hashtags" method='post' id='new-private_hashtag-form'
+          div class="form-group"
+            label for='private_hashtag_content_input' Private Hashtag Content:
+            input type='text' name='content' id='private_hashtag_content_input' class="form-control" placeholder="Private Hashtag content is required"
+          button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Create
+          button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel

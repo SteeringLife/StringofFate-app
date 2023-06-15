@@ -2,21 +2,32 @@ h2
   == "#{card.name}"
 
 dl
-  div class="row"
-    div class="col-xs-3"
-      dt Card Descripstion:
-    div class="col-xs-9"
-      dd class="blockquote"
+  div.row
+    div.col-xs-3
+      dt Card Description:
+    div.col-xs-9
+      dd.blockquote
         == "#{card.description}"
-    dev class="col-xs-9"
+    div.col-xs-9
       dt Card Owner:
-      dd class="blockquote"
+      dd.blockquote
         == "#{card.owner.username}"
+    div.col-xs-9
+      dt Public Hashtags:
+      dd.blockquote
+        - if card.public_hashtags.empty?
+          span.small There are no tags yet
+        ul.list-group
+          - card.public_hashtags.each do |public_hashtag|
+            li.list-group-item.clearfix
+              '  ##{public_hashtag.content}
+        - if card.policies.can_add_public_hashtags
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPublicHashtagModal" + Add Public Hashtags
 
-div class="row"
-  div class="col-lg-9"
-    div class="row"
-      table class="table"
+div.row.mb-3
+  div.col-lg-9
+    div.row
+      table.table
         thead
           tr
             th Link
@@ -30,39 +41,43 @@ div class="row"
               td
                 a href="#{link.url}" target="_blank"
                   == "#{link.url}"
-    div class="row"
-      div class="col-xs-4"
+    div.row.mt-3
+      div.col-xs-4
         - if card.policies.can_add_links
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinkModal" + New Link
-    div class="row mt-2"
-  div class="col-lg-3"
-    div class="panel panel-default"
-      div class="panel-heading" Tags
-      div class="panel-body"
-        - if card.public_hashtags.empty?
-          span class="small" There are no tags yet
-        ul class="list-group"
-          - card.public_hashtags.each do |public_hashtag|
-            li class="list-group-item clearfix"
-              '  ##{public_hashtag.content}
-        - if card.policies.can_add_public_hashtags
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newTagModal" + Add Tags
-    div class="panel panel-default"
-      div class="panel-heading" Receivers
-      div class="panel-body"
+    div.row.mt-3
+  div.col-lg-3
+    / div.panel.panel-default.mt-3
+    /   div.panel-heading
+    /     strong Private Hashtags
+    /   div.panel-body
+    /     - if card.private_hashtags.empty?
+    /       span.small There are no tags yet
+    /     ul.list-group
+    /       - card.private_hashtags.each do |private_hashtag|
+    /         li.list-group-item.clearfix
+    /           '  ##{private_hashtag.content}
+    /     - if card.policies.can_add_private_hashtags
+          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Private Hashtags
+    div.panel.panel-default.mt-3
+      div.panel-heading
+        strong Receivers
+      div.panel-body
         - if card.receivers.empty?
-          span class="small" There are no receivers yet
-        ul class="list-group"
+          span.small There are no receivers yet
+        ul.list-group
           - card.receivers.each do |receiver|
-            li class="list-group-item clearfix"
+            li.list-group-item.clearfix
               '  #{receiver.username}
         - if card.policies.can_give_card_to_receiver
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newReceiverModal" + Add Receiver
 
 include :link_new_partial
 include :receiver_new_partial
+include :public_hashtag_new_partial
+include :private_hashtag_new_partial
 
-.row
+.row.mt-3
   .text-center
     - if card.policies.can_edit
       a href="" edit card
@@ -72,4 +87,3 @@ include :receiver_new_partial
     - if card.policies.can_discard
       == ' | '
       a href="" discard card
-
