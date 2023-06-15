@@ -10,7 +10,7 @@ module StringofFate
       routing.redirect '/auth/login' unless @current_account.logged_in?
       @cards_route = '/cards'
 
-      # GET /cards/tags/[tag_content]
+      # GET /tags/[tag_content]
       routing.get(String) do |tag_content|
         tag_card_list = GetCardsByTag.new(App.config).call(
           @current_account, tag_content
@@ -24,6 +24,7 @@ module StringofFate
       rescue StandardError => e
         puts "ERROR GETTING CARDS BY TAG: #{e.inspect}"
         flash[:error] = 'Could not search card from tags'
+        routing.redirect @cards_route
       end
     end
   end
