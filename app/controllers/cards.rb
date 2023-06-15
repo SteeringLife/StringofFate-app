@@ -87,6 +87,9 @@ module StringofFate
           routing.post('public_hashtags') do
             public_hashtag_data = Form::NewPublicHashtag.new.call(routing.params)
 
+            all_public_hashtags = GetAllPublicHashtags.new(App.config).call
+            puts "ALL PUBLIC HASHTAGS: #{all_public_hashtags.inspect}"
+
             if public_hashtag_data.failure?
               flash[:error] = Form.message_values(public_hashtag_data)
               routing.halt
