@@ -47,17 +47,17 @@ div.row.mb-3
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinkModal" + New Link
     div.row.mt-3
   div.col-lg-3
-    / div.panel.panel-default.mt-3
-    /   div.panel-heading
-    /     strong Private Hashtags
-    /   div.panel-body
-    /     - if card.private_hashtags.empty?
-    /       span.small There are no tags yet
-    /     ul.list-group
-    /       - card.private_hashtags.each do |private_hashtag|
-    /         li.list-group-item.clearfix
-    /           '  ##{private_hashtag.content}
-    /     - if card.policies.can_add_private_hashtags
+    div.panel.panel-default.mt-3
+      div.panel-heading
+        strong Private Hashtags
+      div.panel-body
+        - if card.private_hashtags.empty?
+          span.small There are no tags yet
+        ul.list-group
+          - card.private_hashtags.each do |private_hashtag|
+            li.list-group-item.clearfix
+              '  ##{private_hashtag.content}
+        - if card.policies.can_add_private_hashtags
           button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Private Hashtags
     div.panel.panel-default.mt-3
       div.panel-heading

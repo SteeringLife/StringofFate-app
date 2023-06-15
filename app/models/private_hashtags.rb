@@ -4,12 +4,12 @@ require_relative 'card'
 
 module StringofFate
   # Behaviors of the currently logged in account
-  class PublicHashtags
+  class PrivateHashtags
     attr_reader :all
 
-    def initialize(public_hashtags_list)
-      @all = public_hashtags_list.map do |public_hashtag|
-        PublicHashtag.new(public_hashtag)
+    def initialize(private_hashtags_list)
+      @all = private_hashtags_list.map do |private_hashtag|
+        PrivateHashtag.new(private_hashtag)
       end
     end
   end
