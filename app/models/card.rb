@@ -4,7 +4,7 @@ module StringofFate
   # Behaviors of the currently logged in account
   class Card
     attr_reader :id, :name, :description, # basic info
-                :owner, :receivers, :links, :policies, :public_hashtags # full details
+                :owner, :receivers, :links, :policies, :public_hashtags, :private_hashtags # full details
 
     def initialize(card_info)
       process_attributes(card_info['attributes'])
@@ -27,6 +27,7 @@ module StringofFate
       @receivers = process_receivers(relationships['receivers'])
       @links = process_links(relationships['links'])
       @public_hashtags = process_public_hashtags(relationships['public_hashtags'])
+      @private_hashtags = process_private_hashtags(relationships['private_hashtags'])
     end
 
     def process_policies(policies)
@@ -43,6 +44,12 @@ module StringofFate
       return nil unless public_hashtags_info
 
       public_hashtags_info.map { |public_hashtag_info| PublicHashtag.new(public_hashtag_info) }
+    end
+
+    def process_private_hashtags(private_hashtags_info)
+      return nil unless private_hashtags_info
+
+      private_hashtags_info.map { |private_hashtag_info| PrivateHashtag.new(private_hashtag_info) }
     end
 
     def process_receivers(receivers)
