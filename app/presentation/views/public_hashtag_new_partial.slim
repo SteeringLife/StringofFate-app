@@ -1,0 +1,13 @@
+div id="newPublicHashtagModal" class="modal fade" role="dialog"
+  div class="modal-dialog"
+    div class="modal-content"
+      div class="modal-header"
+        h4 New PublicHashtag
+        button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      div class="modal-body"
+        form role="form" action="/cards/#{card.id}/public_hashtags" method='post' id='new-public_hashtag-form'
+          div class="form-group"
+            label for='public_hashtag_content_input' PublicHashtag Content:
+            input type='text' name='content' id='public_hashtag_content_input' class="form-control" placeholder="PublicHashtag content is required"
+          button type='submit' class="btn btn-primary submit" id='registration-form-submit' value='submit' Create
+          button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel
