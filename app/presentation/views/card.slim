@@ -23,7 +23,7 @@ div.row
           span.small There are no tags yet
         - else
           - card.public_hashtags.each do |public_hashtag|
-            a href="/cards/tags/#{public_hashtag.content}"
+            a href="/tags/#{public_hashtag.content}"
               button type="button" class="btn btn-sm btn-outline-primary mr-1 mb-1" = "##{public_hashtag.content}"
         div.mt-3
           - if card.policies.can_add_public_hashtags
@@ -37,7 +37,7 @@ div.row
           span.small There are no tags yet
         - else
           - card.private_hashtags.each do |private_hashtag|
-            a href="/cards/tags/#{private_hashtag.content}"
+            a href="/tags/#{private_hashtag.content}"
               button type="button" class="btn btn-sm btn-outline-secondary mr-1 mb-1" = "##{private_hashtag.content}"
         div.mt-3
           - if card.policies.can_add_private_hashtags

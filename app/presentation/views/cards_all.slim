@@ -26,7 +26,7 @@ div class="container"
                 span.small There are no tags yet
               - else
                 - card.public_hashtags.each do |tag|
-                  a href="/cards/tags/#{tag.content}"
+                  a href="/tags/#{tag.content}"
                     button type="button" class="btn btn-sm btn-outline-primary mr-8 mb-8" = "##{tag.content}"
               div.text-end.mt-3
               h6.card-title Secret Tags
@@ -34,7 +34,7 @@ div class="container"
                 span.small There are no secrets tags yet
               - else
                 - card.private_hashtags.each do |tag|
-                  a href="/cards/tags/#{tag.content}"
+                  a href="/tags/#{tag.content}"
                     button type="button" class="btn btn-sm btn-outline-secondary mr-8 mb-8" = "##{tag.content}"
 
 include :card_new_partial
