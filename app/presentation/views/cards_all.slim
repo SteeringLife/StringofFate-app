@@ -7,42 +7,40 @@ div class="container"
   div.row
     - cards.all.each do |card|
       div class="col-12 col-sm-6 col-md-4 mb-3" 
-        .card.h-100 class="card bg-light mb-3"
-          .card-body
-            div.row.align-items-center
-              div class="col-6"
-                h5.card-title
-                  == "#{card.name}"
-              div class="col-6 text-end"
-                p.card-text
-                  == "Owner: #{card.owner.username}"
+        a href="/cards/#{card.id}" style="text-decoration: none;"
+          .card.h-100 class="card bg-light mb-3"
+            .card-body
+              div.row.align-items-center
+                div class="col-6"
+                  h5.card-title
+                    == "#{card.name}"
+                div class="col-6 text-end"
+                  p.card-text
+                    == "Owner: #{card.owner.username}"
 
-            p.card-text
-              == "#{card.description}"
+              p.card-text
+                == "#{card.description}"
 
-            div.row.mt-3.align-items-center
-              div.col-6
-                .card
-                  .card-body
-                    h6.card-title Public#
-                    p.card-text
-                      - if card.public_hashtags.empty?
-                        span.small There are no tags yet
-                      - card.public_hashtags.each do |tag|
-                        li
-                          a href="/cards/tags/#{tag}" =tag
-              div.col-6
-                .card
-                  .card-body
-                    h6.card-title Private#
-                    p.card-text
-                      - if card.private_hashtags.empty?
-                        span.small There are no tags yet
-                      - card.private_hashtags.each do |tag|
-                        li
-                          a href="/cards/tags/#{tag}" =tag
-
-            div.text-end.mt-3
-              a.btn.btn-primary href="/cards/#{card.id}" View Card
+              div.row.mt-3.align-items-center
+                div.col-6
+                  .card
+                    .card-body
+                      h6.card-title Public#
+                      p.card-text
+                        - if card.public_hashtags.empty?
+                          span.small There are no tags yet
+                        - else
+                          - card.public_hashtags.each do |tag|
+                            button type="button" class="btn btn-sm btn-outline-primary" =tag
+                div.col-6
+                  .card
+                    .card-body
+                      h6.card-title Private#
+                      p.card-text
+                        - if card.private_hashtags.empty?
+                          span.small There are no tags yet
+                        - else
+                          - card.private_hashtags.each do |tag|
+                            button type="button" class="btn btn-sm btn-outline-secondary" =tag
 
 include :card_new_partial
