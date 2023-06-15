@@ -12,68 +12,75 @@ dl
       dt Card Owner:
       dd.blockquote
         == "#{card.owner.username}"
-    div.col-xs-9
-      dt Tags:
-      dd.blockquote
+
+div.row
+  div.col-md-6
+    div.card.mb-3
+      div.card-header
+        strong Tags
+      div.card-body
         - if card.public_hashtags.empty?
           span.small There are no tags yet
         - else
           - card.public_hashtags.each do |public_hashtag|
             a href="/cards/tags/#{public_hashtag.content}"
-              button type="button" class="btn btn-sm btn-outline-primary mr-8 mb-8" = "##{public_hashtag.content}"
-        - if card.policies.can_add_public_hashtags
+              button type="button" class="btn btn-sm btn-outline-primary mr-1 mb-1" = "##{public_hashtag.content}"
         div.mt-3
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPublicHashtagModal" + Add Tags
-
-div.row.mb-3
-  div.col-lg-9
-    div.row
-      table.table
-        thead
-          tr
-            th Link
-            th URL
-        tbody
-          - card.links.each do |link|
-            tr
-              td
-                a href="/links/#{link.id}"
-                  == "#{link.name}"
-              td
-                a href="#{link.url}" target="_blank"
-                  == "#{link.url}"
-    div.row.mt-3
-      div.col-xs-4
-        - if card.policies.can_add_links
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinkModal" + New Link
-    div.row.mt-3
-  div.col-lg-3
-    div.panel.panel-default.mt-3
-      div.panel-heading
+          - if card.policies.can_add_public_hashtags
+            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPublicHashtagModal" + Add Tags
+  div.col-md-6
+    div.card.mb-3
+      div.card-header
         strong Secret Tags
-      div.panel-body
+      div.card-body
         - if card.private_hashtags.empty?
           span.small There are no tags yet
         - else
           - card.private_hashtags.each do |private_hashtag|
             a href="/cards/tags/#{private_hashtag.content}"
-              button type="button" class="btn btn-sm btn-outline-secondary mr-8 mb-8" = "##{private_hashtag.content}"
-        - if card.policies.can_add_private_hashtags
+              button type="button" class="btn btn-sm btn-outline-secondary mr-1 mb-1" = "##{private_hashtag.content}"
         div.mt-3
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Secret Tags
-    div.panel.panel-default.mt-3
-      div.panel-heading
+          - if card.policies.can_add_private_hashtags
+            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPrivateHashtagModal" + Add Secret Tags
+
+div.row
+  div.col-lg-8
+    div.card.mb-3
+      div.card-header
+        strong Links
+      div.card-body
+        table.table.table-hover
+          thead
+            tr
+              th Link
+              th URL
+          tbody
+            - card.links.each do |link|
+              tr
+                td
+                  a href="/links/#{link.id}"
+                    == "#{link.name}"
+                td
+                  a href="#{link.url}" target="_blank"
+                    == "#{link.url}"
+        div.mt-3
+          - if card.policies.can_add_links
+            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinkModal" + New Link
+  div.col-lg-4
+    div.card.mb-3
+      div.card-header
         strong Receivers
-      div.panel-body
+      div.card-body
         - if card.receivers.empty?
           span.small There are no receivers yet
         ul.list-group
           - card.receivers.each do |receiver|
-            li.list-group-item.clearfix
+            li.list-group-item.clearfix.mt-2
               '  #{receiver.username}
-        - if card.policies.can_give_card_to_receiver
         div.mt-3
-          button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newReceiverModal" + Add Receiver
+          - if card.policies.can_give_card_to_receiver
+            button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newReceiverModal" + Add Receiver
+
 
 include :link_new_partial
 include :receiver_new_partial
