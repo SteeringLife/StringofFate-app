@@ -96,11 +96,16 @@ module StringofFate
               current_account: @current_account,
               public_hashtag_data: public_hashtag_data.to_h
             )
+            AddPublicHashtagToCard.new(App.config).call(
+              current_account: @current_account,
+              public_hashtag_data: public_hashtag_data.to_h,
+              card_id:
+            )
           rescue CreateNewPublicHashtag::AlreadyExistsError
             AddPublicHashtagToCard.new(App.config).call(
               current_account: @current_account,
               public_hashtag_data: public_hashtag_data.to_h,
-              card_id: # Add the card ID here
+              card_id:
             )
             flash[:notice] = 'Your tag was added'
           rescue StandardError => e
