@@ -109,6 +109,28 @@ module StringofFate
           ensure
             routing.redirect @card_route
           end
+
+          # POST /cards/[card_id]/private_hashtags/
+          routing.post('private_hashtags') do
+            private_hashtags_data = Form::NewPrivateHashtag.new.call(routing.params)
+
+            if private_hashtags_data.failure?
+              flash[:error] = Form.message_values(private_hashtags_data)
+              routing.halt
+            end
+
+            CreateNewPrivateHashtag.new(App.config).call(
+              current_account: @current_account,
+              card_id:,
+              private_hashtags_data: private_hashtags_data.to_h
+            )
+
+          rescue StandardError => e
+            puts "ERROR CREATING PUBLIC HASHTAG: #{e.inspect}"
+            flash[:error] = 'Could not add tag'
+          ensure
+            routing.redirect @card_route
+          end
         end
 
         # GET /cards/
