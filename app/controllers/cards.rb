@@ -87,9 +87,6 @@ module StringofFate
           routing.post('public_hashtags') do
             public_hashtag_data = Form::NewPublicHashtag.new.call(routing.params)
 
-            all_public_hashtags = GetAllPublicHashtags.new(App.config).call
-            puts "ALL PUBLIC HASHTAGS: #{all_public_hashtags.inspect}"
-
             if public_hashtag_data.failure?
               flash[:error] = Form.message_values(public_hashtag_data)
               routing.halt
@@ -97,16 +94,14 @@ module StringofFate
 
             CreateNewPublicHashtag.new(App.config).call(
               current_account: @current_account,
-              card_id:,
               public_hashtag_data: public_hashtag_data.to_h
             )
-
-            # AddExistingPublicHashtag.new(App.config).call(
-            #   current_account: @current_account,
-            #   card_id:,
-            #   public_hashtag_data: public_hashtag_data.to_h
-            # )
-
+          rescue CreateNewPublicHashtag::AlreadyExistsError
+            AddPublicHashtagToCard.new(App.config).call(
+              current_account: @current_account,
+              public_hashtag_data: public_hashtag_data.to_h,
+              card_id: # Add the card ID here
+            )
             flash[:notice] = 'Your tag was added'
           rescue StandardError => e
             puts "ERROR CREATING PUBLIC HASHTAG: #{e.inspect}"
