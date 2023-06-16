@@ -25,13 +25,14 @@ module StringofFate
     use SecureHeaders::Middleware
 
     SecureHeaders::Configuration.default do |config|
-      config.cookies = {
-        secure: true,
-        httponly: true,
-        samesite: {
-          lax: true
-        }
-      }
+      ## Cookie security headers in config/environments.rb
+      # config.cookies = {
+      #   secure: true,
+      #   httponly: true,
+      #   samesite: {
+      #     lax: true
+      #   }
+      # }
 
       config.x_frame_options = 'DENY'
       config.x_content_type_options = 'nosniff'

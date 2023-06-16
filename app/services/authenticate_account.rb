@@ -13,7 +13,7 @@ module StringofFate
       credentials = { username:, password: }
 
       response = HTTP.post("#{ENV.fetch('API_URL', nil)}/auth/authenticate",
-                           json: credentials)
+                           json: SignedMessage.sign(credentials))
 
       raise(NotAuthenticatedError) if response.code == 401
       raise(ApiServerError) if response.code != 200
@@ -22,8 +22,6 @@ module StringofFate
 
       { account: account_info['account'],
         auth_token: account_info['auth_token'] }
-    rescue HTTP::ConnectionError
-      raise ApiServerError
     end
   end
 end

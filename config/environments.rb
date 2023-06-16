@@ -32,11 +32,13 @@ module StringofFate
     configure do
       SecureSession.setup(ENV.fetch('REDIS_TLS_URL', nil)) # REDIS_TLS_URL used again below
       SecureMessage.setup(ENV.delete('MSG_KEY'))
+      SignedMessage.setup(config)
     end
 
     configure :production do
       use Rack::Session::Redis,
           expire_after: ONE_MONTH,
+          secure: true, # only possible on https:// requests
           httponly: true,
           same_site: :lax,
           redis_server: {
@@ -47,8 +49,8 @@ module StringofFate
 
     configure :development, :test do
       # use Rack::Session::Cookie,
-      #     expire_after: ONE_MONTH,
       #     secret: config.SESSION_SECRET,
+      #     expire_after: ONE_MONTH,
       #     httponly: true,
       #     same_site: :lax
 
@@ -60,7 +62,7 @@ module StringofFate
       # use Rack::Session::Redis,
       #     expire_after: ONE_MONTH,
       #     httponly: true,
-      #     same_site: :strict,
+      #     same_site: :lax,
       #     redis_server: {
       #       url: ENV.delete('REDIS_URL')
       #     }
