@@ -11,7 +11,6 @@ module StringofFate
 
       # POST /public_hashtags/
       routing.post('public_hashtags') do
-        
         public_hashtag_data = Form::NewPublicHashtag.new.call(routing.params)
 
         if public_hashtag_data.failure?
