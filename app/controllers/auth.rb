@@ -27,7 +27,6 @@ module StringofFate
         # POST /auth/login
         routing.post do
           credentials = Form::LoginCredentials.new.call(routing.params)
-
           if credentials.failure?
             flash[:error] = 'Please enter both username and password'
             routing.redirect @login_route

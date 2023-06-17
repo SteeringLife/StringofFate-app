@@ -81,8 +81,6 @@ div.row
           - if card.policies.can_give_card_to_receiver
             button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newReceiverModal" + Add Receiver
 
-
-
 include :link_new_partial
 include :receiver_new_partial
 include :public_hashtag_new_partial
@@ -98,14 +96,3 @@ include :private_hashtag_new_partial
     - if card.policies.can_discard
       == ' | '
       a href="" discard card
-
-.row
-  .text-center
-    - if card.policies.can_edit
-      a href="" edit card
-    - if card.policies.can_delete
-      == ' | '
-      a href="" delete card
-    - if card.policies.can_leave
-      == ' | '
-      a href="" leave card

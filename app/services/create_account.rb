@@ -19,7 +19,7 @@ module StringofFate
 
       response = HTTP.post(
         "#{@config.API_URL}/accounts/",
-        json: SignedMessage.sign(account)
+        json: account
       )
 
       raise InvalidAccount unless response.code == 201
