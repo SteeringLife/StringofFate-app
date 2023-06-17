@@ -4,7 +4,7 @@ require 'roda'
 require_relative './app'
 
 module StringofFate
-  # Web controller for String of Fate App
+  # Web controller for String of Fate APP
   class App < Roda
     def gh_oauth_url(config)
       url = config.GH_OAUTH_URL
@@ -32,9 +32,12 @@ module StringofFate
             routing.redirect @login_route
           end
 
-          authenticated = AuthenticateAccount.new.call(**credentials.values) # .new(App.config)
+          authenticated = AuthenticateAccount.new.call(**credentials.values)
 
-          current_account = Account.new(authenticated[:account], authenticated[:auth_token])
+          current_account = Account.new(
+            authenticated[:account],
+            authenticated[:auth_token]
+          )
 
           CurrentSession.new(session).current_account = current_account
 
@@ -44,6 +47,7 @@ module StringofFate
           flash.now[:error] = 'Username and password did not match our records'
           response.status = 401
           view :login
+          # routing.redirect @login_route
         rescue AuthenticateAccount::ApiServerError => e
           App.logger.warn "API server error: #{e.inspect}\n#{e.backtrace}"
           flash[:error] = 'Our servers are not responding -- please try later'
@@ -59,7 +63,10 @@ module StringofFate
                        .new(App.config)
                        .call(routing.params['code'])
 
-          current_account = Account.new(authorized[:account], authorized[:auth_token])
+          current_account = Account.new(
+            authorized[:account],
+            authorized[:auth_token]
+          )
 
           CurrentSession.new(session).current_account = current_account
 
@@ -108,7 +115,7 @@ module StringofFate
 
             flash[:notice] = 'Please check your email for a verification link'
             routing.redirect '/'
-          rescue VerifyRegistration::ApiServerError => e
+          rescue VerifyRegistration::ApiServerError => e"
             App.logger.warn "API server error: #{e.inspect}\n#{e.backtrace}"
             flash[:error] = 'Our servers are not responding -- please try later'
             routing.redirect @register_route

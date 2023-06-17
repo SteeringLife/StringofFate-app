@@ -22,8 +22,6 @@ module StringofFate
 
       { account: account_info['account'],
         auth_token: account_info['auth_token'] }
-    rescue HTTP::ConnectionError
-      raise ApiServerError
     end
   end
 end
