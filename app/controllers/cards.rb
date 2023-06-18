@@ -14,6 +14,39 @@ module StringofFate
         routing.on(String) do |card_id|
           @card_route = "#{@cards_route}/#{card_id}"
 
+          # `# POST /cards/[card_id]
+          # routing.post do
+          #   action = routing.params['action']
+          #   new_card_name = routing.params['new_card_name']
+          #   card_data = Form::NewCard.new.call(routing.params)
+          #   if card_data.failure?
+          #     flash[:error] = Form.validation_errors(card_data)
+          #     routing.halt
+          #   end
+
+          #   task_list = {
+          #     'edit' => { service: EditCard,
+          #                 message: 'Edit the name of card',
+          #                 err_msg: "Edit card error,  empty /already exists" },
+          #     'delete' => { service: DeleteCard,
+          #                   message: 'Deleted card',
+          #                   err_msg: "Can't delete now! Please try it later🙏" }
+          #   }
+
+          #   task = task_list[action]
+
+          #   task[:service].new(App.config).call(
+          #     current_account: @current_account,
+          #     new_card_name:,
+          #     card_id:
+          #   )
+          #   flash[:notice] = task[:message]
+
+          # rescue StandardError
+          #   flash[:error] = task[:err_msg]
+
+          # end
+
           # GET /cards/[card_id]
           routing.get do
             card_info = GetCard.new(App.config).call(
@@ -82,6 +115,38 @@ module StringofFate
           ensure
             routing.redirect @card_route
           end
+
+          # # POST /cards/[card_id]/links/
+          # routing.post('links') do
+          #   link_data = Form::NewLink.new.call(routing.params)
+
+          #   if link_data.failure?
+          #     flash[:error] = Form.message_values(link_data)
+          #     routing.halt
+          #   end
+
+          #   task_list = {
+          #     'add' => { service: CreateNewLink,
+          #                message: 'Your link was added' },
+          #     'remove' => { service: RemoveLink,
+          #                   message: 'Link Removed from this card' }
+          #   }
+
+          #   task = task_list[action]
+
+          #   task[:service].new(App.config).call(
+          #     current_account: @current_account,
+          #     card_id:,
+          #     link_data: link_data.to_h
+          #   )
+
+          #   flash[:notice] == task[:message]
+          # rescue StandardError => e
+          #   puts "ERROR IN #{action} LINK: #{e.inspect}"
+          #   flash[:error] = "Could not #{action} link"
+          # ensure
+          #   routing.redirect @card_route
+          # end
 
           # POST /cards/[card_id]/public_hashtags/
           routing.post('public_hashtags') do
