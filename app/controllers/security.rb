@@ -15,6 +15,8 @@ module StringofFate
     FONT_SRC = %w[https://cdn.jsdelivr.net].freeze
     SCRIPT_SRC = %w[https://cdn.jsdelivr.net].freeze
     STYLE_SRC = %w[https://bootswatch.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com].freeze
+    FONT_SRC = %w[ https://fonts.googleapis.com https://cdn.jsdelivr.net].freeze
+
 
     configure :production do
       use Rack::SslEnforcer, hsts: true
@@ -51,7 +53,7 @@ module StringofFate
         img_src: %w['self'],
         font_src: %w['self'] + FONT_SRC,
         script_src: %w['self'] + SCRIPT_SRC,
-        style_src: %W['self'] + STYLE_SRC,
+        style_src: %W['self' 'unsafe-inline'] + STYLE_SRC,
         form_action: %w['self'],
         frame_ancestors: %w['none'],
         object_src: %w['none'],
@@ -65,6 +67,7 @@ module StringofFate
       # POST security/report_csp_violation
       routing.post 'report_csp_violation' do
         App.logger.warn "CSP VIOLATION: #{request.body.read}"
+        ''
       end
     end
   end

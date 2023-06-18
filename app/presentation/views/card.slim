@@ -63,6 +63,15 @@ div.row
                 td
                   a href="#{link.url}" target="_blank"
                     == "#{link.url}"
+                - if card.policies.can_remove_links
+                  td
+                    / form role='form' method='post' action="/cards/#{card.id}/links"
+                    /   input type='hidden' name='action' value='remove'
+                    /   input type='hidden' name='name' value="#{link.name}"
+                    /   input type='hidden' name='url' value="#{link.url}"
+                    button type="submit" class="btn btn-sm btn-default float-end"
+                      | ✘         
+
         div.mt-3
           - if card.policies.can_add_links
             button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newLinkModal" + New Link
@@ -85,14 +94,17 @@ include :link_new_partial
 include :receiver_new_partial
 include :public_hashtag_new_partial
 include :private_hashtag_new_partial
+include :card_edit_partial
+include :card_delete_partial
+include :card_discard_partial
 
 .row.mt-3
   .text-center
     - if card.policies.can_edit
-      a href="" edit card
+      a href="#editCardModal" data-bs-toggle="modal" edit card 
     - if card.policies.can_delete
       == ' | '
-      a href="" delete card
+      a href="#deleteCardModal" data-bs-toggle="modal" delete card
     - if card.policies.can_discard
       == ' | '
-      a href="" discard card
+      a href="#discardCardModal" data-bs-toggle="modal" discard card

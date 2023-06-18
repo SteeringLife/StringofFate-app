@@ -1,0 +1,14 @@
+div id="discardCardModal" class="modal fade" role="dialog"
+  div class="modal-dialog"
+    div class="modal-content"
+      div class="modal-header"
+        h4 class="modal-title"  DO YOU REALLY WANT TO DISCARD THIS CARD?
+        button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+      div class="modal-body"
+        / form role="form" action="/cards/#{card.id}" method="post" id="discard-card-form"
+        /   input type="hidden" name="_method" value="put"
+        /   div class="form-group"
+        /     input type='hidden' name='action' value='delete'
+        /     input type="hidden" name="card_name"  value="new_card_name"
+        button type="submit" id="edit-card-submit" class="submit" value="submit" class="btn btn-danger" DELETE
+        button type="button" class="btn btn-secondary" data-bs-dismiss="modal" Cancel

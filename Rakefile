@@ -8,7 +8,7 @@ task :print_env do
 end
 
 desc 'Run application console (pry)'
-task console: :print_env do
+task :console => :print_env do
   sh 'pry -r ./spec/test_load_all'
 end
 
@@ -24,7 +24,7 @@ task :respec do
 end
 
 desc 'Run rubocop to check style'
-task style: :spec do
+task :style => :spec do
   sh 'rubocop .'
 end
 
@@ -41,7 +41,7 @@ end
 namespace :run do
   # Run in development mode
   desc 'Run Web App in development mode'
-  task dev: :print_env do
+  task :dev => :print_env do
     sh 'puma -p 9292'
   end
 end
@@ -52,12 +52,12 @@ end
 
 namespace :generate do
   desc 'Create rbnacl key'
-  task msg_key: :load_lib do
+  task :msg_key => :load_lib do
     puts "New MSG_KEY (base64): #{SecureMessage.generate_key}"
   end
 
   desc 'Create cookie secret'
-  task session_secret: :load_lib do
+  task :session_secret => :load_lib do
     puts "New SESSION_SECRET (base64): #{SecureSession.generate_secret}"
   end
 end
@@ -74,7 +74,7 @@ end
 
 namespace :session do
   desc 'Wipe all sessions stored in Redis'
-  task wipe: :load_lib do
+  task :wipe => :load_lib do
     require 'redis'
     puts 'Deleting all sessions from Redis session store'
     wiped = SecureSession.wipe_redis_sessions

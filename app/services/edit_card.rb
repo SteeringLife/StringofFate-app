@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+require 'http'
+
+module StringofFate
+  # Returns all cards belonging to an account
+  class EditCard
+    def initialize(config)
+      @config = config
+    end
+
+    def api_url
+      @config.API_URL
+    end
+
+    def call(current_account:, card_id:)
+      config_url = "#{api_url}/cards/#{card_id}"
+      response = HTTP.auth("Bearer #{current_account.auth_token}")
+                     .post(config_url,
+                           json: { new_name:, card_id: })
+
+      print(response.code)
+      raise StandardError if response.code == 500
+
+      response.code == 200 ? JSON.parse(response.body.to_s)['data'] : nil
+    end
+  end
+end

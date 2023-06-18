@@ -5,9 +5,9 @@ require 'webmock/minitest'
 
 describe 'Test Service Objects' do
   before do
-    @credentials = { username: 'aresr417', password: 'mypa$$w0rd' }
-    @mal_credentials = { username: 'aresr417', password: 'wrongpassword' }
-    @api_account = { username: 'aresr417', email: 'aresr417@nthu.edu.tw' }
+    @credentials = { username: 'soumya.ray', password: 'mypa$$w0rd' }
+    @mal_credentials = { username: 'soumya.ray', password: 'wrongpassword' }
+    @api_account = { username: 'soumya.ray', email: 'sray@nthu.edu.tw' }
   end
 
   after do
@@ -17,8 +17,8 @@ describe 'Test Service Objects' do
   describe 'Find authenticated account' do
     it 'HAPPY: should find an authenticated account' do
       auth_account_file = 'spec/fixtures/auth_account.json'
-      # # Use this code to get an actual seeded account from API:
-      # @credentials = { username: 'aresr417', password: 'mypa$$w0rd' }
+      ## Use this code to get an actual seeded account from API:
+      # @credentials = { username: 'soumya.ray', password: 'mypa$$w0rd' }
       # response = HTTP.post("#{app.config.API_URL}/auth/authenticate",
       #   json: { username: @credentials[:username], password: @credentials[:password] })
       # auth_account_json = response.body.to_s
@@ -27,7 +27,7 @@ describe 'Test Service Objects' do
       auth_return_json = File.read(auth_account_file)
 
       WebMock.stub_request(:post, "#{API_URL}/auth/authenticate")
-             .with(body: @credentials.to_json)
+             .with(body: SignedMessage.sign(@credentials).to_json)
              .to_return(body: auth_return_json,
                         headers: { 'content-type' => 'application/json' })
 
@@ -41,7 +41,7 @@ describe 'Test Service Objects' do
 
     it 'BAD: should not find a false authenticated account' do
       WebMock.stub_request(:post, "#{API_URL}/auth/authenticate")
-             .with(body: @mal_credentials.to_json)
+             .with(body: SignedMessage.sign(@mal_credentials).to_json)
              .to_return(status: 401)
       _(proc {
         StringofFate::AuthenticateAccount.new.call(**@mal_credentials)
