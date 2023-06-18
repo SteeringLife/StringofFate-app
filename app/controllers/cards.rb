@@ -5,7 +5,7 @@ require_relative './app'
 
 module StringofFate
   # Web controller for String of Fate API
-  class App < Roda # rubocop:disable Metrics/ClassLength
+  class App < Roda
     route('cards') do |routing|
       routing.on do
         routing.redirect '/auth/login' unless @current_account.logged_in?
