@@ -9,7 +9,6 @@ module StringofFate
     EMAIL_REGEX = /@/
     NAME_REGEX = %r{^((?![&/\\\{\}|\t]).)*$}
 
-
     def self.validation_errors(validation)
       validation.errors.to_h.map { |k, v| [k, v].join(' ') }.join('; ')
     end

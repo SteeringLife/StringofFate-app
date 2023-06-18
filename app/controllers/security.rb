@@ -15,8 +15,7 @@ module StringofFate
     FONT_SRC = %w[https://cdn.jsdelivr.net].freeze
     SCRIPT_SRC = %w[https://cdn.jsdelivr.net].freeze
     STYLE_SRC = %w[https://bootswatch.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com].freeze
-    FONT_SRC = %w[ https://fonts.googleapis.com https://cdn.jsdelivr.net].freeze
-
+    FONT_SRC = %w[https://fonts.googleapis.com https://cdn.jsdelivr.net].freeze
 
     configure :production do
       use Rack::SslEnforcer, hsts: true
