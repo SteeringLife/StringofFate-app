@@ -3,8 +3,8 @@ require:
   - rubocop-performance
 
 AllCops:
-  TargetRubyVersion: 3.1
-  NewCops: enable
+  TargetRubyVersion: 3.2
+  NewCops: enable         # enable new upcoming cops for rubocop
   Exclude:
     - _snippets/*
 

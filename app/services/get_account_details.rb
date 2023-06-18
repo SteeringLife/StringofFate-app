@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
 # Get details of an account
+
+require 'http'
 class GetAccountDetails
   # Error for account details that cannot be retrieved
   class InvalidAccount < StandardError

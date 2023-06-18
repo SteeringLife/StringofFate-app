@@ -32,12 +32,12 @@ module StringofFate
     configure do
       SecureSession.setup(ENV.fetch('REDIS_TLS_URL', nil)) # REDIS_TLS_URL used again below
       SecureMessage.setup(ENV.delete('MSG_KEY'))
+      SignedMessage.setup(config)
     end
 
     configure :production do
       use Rack::Session::Redis,
           expire_after: ONE_MONTH,
-          secure: true, # only possible on https:// requests
           httponly: true,
           same_site: :lax,
           redis_server: {
@@ -47,6 +47,7 @@ module StringofFate
     end
 
     configure :development, :test do
+      require 'pry'
       # use Rack::Session::Cookie,
       #     secret: config.SESSION_SECRET,
       #     expire_after: ONE_MONTH,
@@ -65,10 +66,6 @@ module StringofFate
       #     redis_server: {
       #       url: ENV.delete('REDIS_URL')
       #     }
-    end
-
-    configure :development, :test do
-      require 'pry'
 
       # Allows running reload! in pry to restart entire app
       def self.reload!

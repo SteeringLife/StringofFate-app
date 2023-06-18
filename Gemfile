@@ -29,6 +29,7 @@ gem 'secure_headers'
 gem 'pry'
 gem 'rack-test'
 
+
 # Development
 group :development do
   gem 'rubocop'
