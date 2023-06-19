@@ -15,7 +15,7 @@ module StringofFate
     def call(registration_data) # rubocop:disable Metrics/MethodLength
       reg_details = registration_data.to_h
       registration_token = SecureMessage.encrypt(reg_details)
-      reg_details['verification_url'] =
+      reg_details[:verification_url] =
         "#{@config.APP_URL}/auth/register/#{registration_token}"
 
       response = HTTP.post(
